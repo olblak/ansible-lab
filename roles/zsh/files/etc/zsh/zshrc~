@@ -1,0 +1,58 @@
+#!/bin/zsh
+
+export LC_COLLATE="C"
+
+alias ll='ls -l --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'
+alias lla='ls -la --color=auto'
+alias du='du -h'
+alias df='df -h'
+alias s='cd ..'
+alias diff='colordiff'
+alias u='cd ..'
+
+if [ -x /usr/bin/dircolors ]
+then
+if [ -r ~/.dir_colors ]
+then
+eval "`dircolors ~/.dir_colors`"
+elif [ -r /etc/dir_colors ]
+then
+eval "`dircolors /etc/dir_colors`"
+else
+eval "`dircolors`"
+fi
+fi
+
+ssh-add 2>/dev/null
+
+autoload -U compinit promptinit
+compinit
+promptinit; prompt gentoo
+zstyle ':completion::complete:*' use-cache 1
+
+setopt auto_cd
+setopt auto_pushd
+setopt print_exit_value
+setopt clobber
+setopt chase_links
+setopt auto_remove_slash
+setopt extendedglob
+unsetopt hup
+
+bindkey '^[[3~' delete-char # Del
+bindkey '^[[2~' overwrite-mode # Insert
+bindkey '^[[5~' history-search-backward # PgUp
+bindkey '^[[6~' history-search-forward # PgDn
+bindkey '^[[H' beginning-of-line # Home
+bindkey '^[[F' end-of-line # End
+
+autoload -U colors && colors
+
+source /etc/zsh/zshprompt
+
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
+export HISTFILE=$HOME/.history
+export PATH=$PATH:/usr/local/bin

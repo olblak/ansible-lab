@@ -1,0 +1,14 @@
+---
+    # Localhost Default configuration 
+       
+    - name: Localhost Default configuration 
+      hosts: 127.0.0.1
+      connection: local
+
+      roles:
+       - vim
+
+      pre_tasks:
+        - name: Check yum-utils
+          raw: rpm -q yum-utils || yum -y install yum-utils
+

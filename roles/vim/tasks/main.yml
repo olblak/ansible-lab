@@ -1,0 +1,35 @@
+---
+#################################################
+### Manage Vim Configuration
+    
+    - name: Install VIM
+      yum: name=vim state=present
+      
+    - name: Create /etc/vim 
+      file: path=/etc/vim state=directory owner=root group=root force=yes mode=0755
+
+    - name: Create /etc/vim/bundle 
+      file: path=/etc/vim/bundle state=directory owner=root group=root force=yes
+
+    - name: Install vundle
+      git: repo=https://github.com/gmarik/vundle.git dest=/etc/vim/bundle/vundle
+
+    - name: Install nerdtree
+      git: repo=git://github.com/scrooloose/nerdtree.git dest=/etc/vim/bundle/nerdtree
+
+    - name: Install python-mode
+      git: repo=https://github.com/klen/python-mode.git dest=/etc/vim/bundle/python-mode
+
+    - name: Install powerline
+      git: repo=https://github.com/Lokaltog/vim-powerline.git dest=/etc/vim/bundle/powerline
+
+    - name: Install indentLine
+      git: repo=https://github.com/Yggdroot/indentLine.git dest=/etc/vim/bundle/indentLine
+
+    - name: Install vim-yaml
+      git: repo=https://github.com/stephpy/vim-yaml.git dest=/etc/vim/bundle/vim-yaml
+
+    - name: Create /etc/vimrc
+      template: src=etc/vimrc dest=/etc/vimrc backup=yes
+      
+

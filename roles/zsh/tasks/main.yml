@@ -1,0 +1,22 @@
+---
+#################################################
+### Manage Zsh Configuration
+    
+    - name: Install zsh
+      yum: name=zsh state=present
+
+    - name: Create directory /etc/zsh
+      file: path=/etc/zsh state=directory owner=root group=root
+      
+    - name: Upload zsh config
+      copy: src=etc/zsh/zshrc dest=/etc/zshrc owner=root group=root
+
+    - name: Upload zsh config
+      copy: src=etc/zsh/zshprompt dest=/etc/zsh/zshprompt owner=root group=root
+
+    - name: Update shell used for root
+      user: name=root shell=/bin/zsh
+
+    - name: Update shell used for user
+      user: name={{ item }} shell=/bin/zsh
+      with_items: user
